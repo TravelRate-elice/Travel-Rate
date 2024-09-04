@@ -1,0 +1,127 @@
+.SliderContainer {
+    display: flex;
+}
+
+.mainSlider {
+    width: 80% ;
+   
+}
+
+.text {
+    position: relative;
+}
+
+.textBox {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+}
+
+.textBoxWon {
+    width: 30px;
+    height: 30px;
+    position: absolute;
+    right: 10%;
+    top: 20%;
+    opacity: 30%;
+}
+
+.textInput {
+
+    height: 50px;
+    width: 150px;
+    font-size: 25px;
+    outline: none;
+    appearance: none;
+    border: none;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    padding-left: 20px;
+}
+
+.sliderWrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+    width: 100%;
+    height: 140px;
+    outline: none;
+    margin: 0 auto;
+    appearance: none;
+    // background: #007bff; /* 슬라이더 바 색상 */
+  
+
+    input[type="range"] {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 100%;
+        height: 30px;
+        background: transparent;
+        cursor: pointer;
+        position: relative;
+    }
+
+    /* Track 스타일 */
+    input[type="range"]::-webkit-slider-runnable-track {
+        width: 100%;
+        height: 20px; /* Track 높이 설정 */
+        background: #e1e1e1; /* Track 색상 */
+        border-radius: 30px;
+        cursor: pointer;
+        -webkit-appearance: none; 
+    }
+    input[type="range"]::-webkit-slider-runnable-track::before {
+		content: "";
+        -webkit-appearance: none; 
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		z-index: -1;
+		background-color: #7F9BED;
+		transition: opacity 0.5s linear;
+		
+	}
+
+    /* Thumb 스타일 */
+    input[type="range"]::-webkit-slider-thumb {
+        -webkit-appearance: none;
+        appearance: none;
+        width: 70px;
+        height: 70px;
+        background-color: #7F9BED;
+        border-radius: 50%;
+        cursor: pointer;
+
+        box-shadow: 1px 1px 1px #000000;
+
+
+
+        position: relative;
+        top: -30px; 
+    }
+     
+
+}
+
+.warningBox {
+    border: none;
+    background-color: #007bff;
+    position: absolute;
+    z-index: 100;
+    width: 30%;
+    height: 80%;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 1);
+
+}
+
+.warningMessage {
+    text-align: center;
+    font-size: 20px;
+    font-weight: bold;
+    margin-top: 10%;
+}

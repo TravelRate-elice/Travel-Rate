@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@100..900&display=swap');
+
+body {
+  font-family: "Noto Sans KR", system-ui;
+}
+
+.nav-bar {
+  display: flex;
+  align-content: space-between;
+  width: 100vw;
+  height: 10vh;
+  align-items: center;
+}
+
+.nav-nar-inner-logo-img {
+  display: inline-block;
+}
+
+.nav-bar-inner-recomm , .nav-bar-inner-exchange, .nav-bar-inner-log{
+  display: inline-block;
+
+}

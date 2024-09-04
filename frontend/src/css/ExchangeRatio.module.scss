@@ -1,0 +1,312 @@
+.ExchangeRatio {
+    display: flex;
+    flex-direction: column;
+    
+}
+
+main {
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.upperSideContents {
+    display: flex;
+    margin-top: 1%;
+    width: 80%;
+    justify-content: space-between;
+  }
+
+.helpCheckBox {
+    margin-left: 10px;
+    position: relative;
+}
+
+.helpcontents {
+    display: flex;
+    align-items: center;
+    width: 100%;
+}
+  
+  .goalContents {
+    width: 20%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+  }
+  
+  
+.alarmPlus {
+    display: flex;
+    flex-direction: column;
+    align-items: center; 
+    justify-content: center; 
+    text-align: center; 
+    margin: 20px 0;
+    margin-top: -50px;
+
+    position: relative;
+    width: 100%;
+    height: 100px;
+    
+  }
+
+
+  .planeImg {
+    position: absolute;
+    bottom: 0px; 
+    left: 400px; 
+    width: 100px;
+    height: 100px;
+    opacity: 0;
+    transition: opacity 0.1s ease;
+    z-index: 100000;
+}
+
+.planeAnimate {
+    animation: flyAcross 5s forwards;
+    opacity: 1;
+}
+
+@keyframes flyAcross {
+    0% {
+        transform: translate(0, 0) scale(1); /* 초기 크기를 1로 수정 */
+        opacity: 1;
+    }
+    40% {
+        transform: translate(30vw, -15vh) scale(1.2); 
+        opacity: 1; 
+    }
+    80% {
+        transform: translate(80vw, -20vh) scale(1.5); 
+        opacity: 1; 
+    }
+    100% {
+        transform: translate(100vw, 0) scale(1); 
+        opacity: 1; 
+    }
+}
+
+
+
+
+
+  .alarmPlus p {
+    margin-top: -5px;
+    font-weight: bold;
+  }
+
+
+.plusImage {
+    transition: transform 0.3s ease;
+    cursor: pointer;
+}
+
+
+.plusImage:active {
+    transform: scale(1.3);
+}
+
+
+@keyframes clickEffect {
+    0% { transform: scale(1); }
+    50% { transform: scale(1.3); }
+    100% { transform: scale(1); }
+}
+
+
+.upperSideInnerSelectCountry {
+    cursor: pointer;
+    background-color: #ffffff;
+    border-radius: 50px;
+    border: 3px solid #7F9BED;
+    font-size: 17px;
+    margin-right: 15%;
+    width: 200px;
+    height: 40px;
+    min-width: 250px;
+    position: relative;
+}
+
+
+
+.upper-side-contents {
+    display: flex;
+
+}
+
+.helpDialogue {
+    font-weight: bold;
+    font-size: 16px;
+    color: #555555;
+}
+
+.goalSetting{
+    font-weight: bolder;
+    font-size: 40px;
+}
+
+.alarm-plus p {
+    font-weight: bold;
+    font-size: 30px;
+
+}
+
+.helpCheckBox {
+    border: 3px solid #7a7a7a;
+    border-radius: 25%;
+    width: 18px;
+    height: 18px;
+}
+
+
+.textBox {
+    display: flex;
+}
+
+.textBoxWon {
+    display: inline-block;
+    width: 20px;
+    height: 20px;
+}
+
+.lowerSideContents {
+    width: 90vw;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    height: 240px;
+    margin-top: -70px;
+}
+
+.lowerSideContentsInner {
+    // margin-left: 10px;
+}
+
+.alarmDialogues {
+    // margin-left: 60%;
+    width: 40%;
+    margin-bottom: 28px;
+}
+
+.alarmDialogueSmall {
+    font-size: 10px;
+    color: gray;
+    margin-right: 10%;
+}
+
+.alarmDialogueBig {
+    font-size: 30px;
+    font-weight: bolder;
+}
+
+.lowerSideCountry {
+    display: flex;
+    align-items:center;
+    padding: 10px 0;
+    gap: 10px;
+}
+
+// .lowerSideCountry1, .lowerSideCountry2, .lowerSideCountry3 {
+//     display: flex;
+//     align-items:center;
+//     padding: 10px 0;
+//     gap: 30px;
+// }
+
+// .lowerSideCountry1Name{
+    
+// }
+
+.country2Modify, .country1Modify, .country3Modify {
+    margin-left: 70%;
+    width: 5%;
+}
+
+
+
+.lowerSideCountry1Img {
+    display: inline-block
+}
+
+.flag1, .flag2, .flag3 {
+    width: 20px;
+    height: 20px;
+}
+
+.dropdownContainer {
+    cursor: pointer;
+    width: 170px;
+    height: 50px;
+    border: none;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
+    border-radius: 30px;
+    padding: 0 5%;
+    color: #555555;
+    appearance: none;
+    outline: none;
+}
+
+
+  .helpText1 {
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    animation: fadein 1s;
+    margin-left: 1100px;
+    font-weight: bold;
+    margin-top: 100px;
+  }
+
+  .helpText2 {
+  
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 800px;
+    animation: fadein 1s;
+    margin-top: -70px;
+    font-weight: bold;
+  }
+   .helpText3 {
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10bpx rgba(0, 0, 0, 0.1);
+    font-weight: bold;
+    animation: fadein 1s;
+    margin-left: 700px;
+  }
+   .helpText4 {
+    animation: fadein 1s;
+    position: absolute;
+    background-color: #fff;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    margin-left: 1000px;
+    font-weight: bold;
+    margin-top: -80px;
+  }
+
+  @keyframes fadein {
+    from {
+        opacity: 0;
+    }
+    to {
+        opacity: 1;
+    }
+}
+
+.sliderContainer {
+    width: 80%;
+}
