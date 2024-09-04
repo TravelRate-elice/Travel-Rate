@@ -9,7 +9,7 @@ const ExchangeRatio = () => {
     const [goalRate, setGoalRate] = useState("")
     const [submitList, setSubmitList] = useState([])
     const [isAnimating, setIsAnimating] = useState(false);
-    
+    const [isHovered, setIsHovered] = useState(false)
 
     const toggleHelp = () => {
         setHelpActive(!helpActive);
@@ -73,6 +73,7 @@ const ExchangeRatio = () => {
                         <option value="">국가를 선택해주세요</option>
                         <Dropdown/>
                     </select>
+                    <img src="/exchange/down.svg" alt="down" className={styles.downImg} />
                 </div>
                 {helpActive && (
                         <div className={styles.helpText1}>
@@ -92,24 +93,32 @@ const ExchangeRatio = () => {
                     )}
                 </div>
                 <div className={styles.alarmPlus}>
-                <img src="/add.png" alt="plus-img" onClick={handleSubmit} className={styles.plusImage}/>
-                 <p>환율알림 추가</p>
-                 <img
-        src="/airplane.svg"
-        alt="plane-img"
-        onAnimationEnd={handleAnimationEnd}
-        className={`${styles.planeImg} ${isAnimating ? styles.planeAnimate : ''}`}
-      />
-                 {helpActive && (
-                        <div className={styles.helpText3}>
-                            3. 국가명과 목표 환율을 선택한 뒤 알림추가 버튼을 누르시면 알림목록에 추가됩니다.
-                        </div>
-                    )}
+                    <img 
+                        src={isHovered ? "/exchange/add_click.svg" : "/exchange/add_gray.svg"}
+                        onMouseEnter={() => setIsHovered(true)}
+                        onMouseLeave={() => setIsHovered(false)}
+                        alt="plus-img" 
+                        onClick={handleSubmit} 
+                        className={styles.plusImage}/>
+                    <p className={styles.alertAddText}>환율알림 추가</p>
+                    <img
+                        src="/airplane.svg"
+                        alt="plane-img"
+                        onAnimationEnd={handleAnimationEnd}
+                        className={`${styles.planeImg} ${isAnimating ? styles.planeAnimate : ''}`}
+                    />
+                    {helpActive && (
+                            <div className={styles.helpText3}>
+                                3. 국가명과 목표 환율을 선택한 뒤 알림추가 버튼을 누르시면 알림목록에 추가됩니다.
+                            </div>
+                        )}
                 </div>
                     <div className={styles.alarmDialogues}>
-                        <span className={styles.alarmDialogueSmall}>최대 3개국/오전 11시 마다 업데이트</span>
-                        <span className={styles.alarmDialogueBig}>환율 수정 / 삭제</span>
+                        <span className={styles.alarmDialogueSmall}>최대 3개 추가 가능 / 환율정보 오전 11시 마다 업데이트</span>
+                        <span className={styles.alarmDialogueBig1}>수정</span>
+                        <span className={styles.alarmDialogueBig2}>삭제</span>
                     </div>
+                    <p className={styles.underLine}></p>
                 <div className={styles.lowerSideContents}>
 
                     <div className={styles.lowerSideContentsInner}>
@@ -118,7 +127,7 @@ const ExchangeRatio = () => {
                             <div key={index} className={styles.lowerSideCountry}>
                                 <p>국가 이름: {item.country}</p>
                                 <p>설정하신 환율(원화기준): {item.targetRate}원</p>
-                                  </div>
+                            </div>
                         ))}
 
                         {/* {submitList.length < 3 && submitList && <div className={styles.lowerSideCountry1} >

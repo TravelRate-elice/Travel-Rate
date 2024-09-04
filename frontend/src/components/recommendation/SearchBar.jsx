@@ -10,6 +10,8 @@ export const SearchBar = ({ onSearchClick }) => {
     const [isBudgetClicked, setIsBudgetClicked] = useState(false)
 
     const [isHovered, setIsHovered] = useState(false)
+    const [selectedTabTitle, setSelectedTabTitle] = useState("")
+    const [budgetInputValue, setBudgetInputValue] = useState("")
 
     const tabRef = useRef(null)
     const tabRef2 = useRef(null)
@@ -26,7 +28,7 @@ export const SearchBar = ({ onSearchClick }) => {
         { index: 4, tabTitle: "북미", tabCont: ["미국", "캐나다"] },
         { index: 5, tabTitle: "유럽", tabCont: ["유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴"] },
         { index: 6, tabTitle: "오세안주", tabCont: ["호주", "뉴질랜드"] }
-    ];
+    ]
 
     const handleClickOutside = (event) => {
         if (tabRef.current && !tabRef.current.contains(event.target)) {
@@ -59,7 +61,7 @@ export const SearchBar = ({ onSearchClick }) => {
     const searchBarClass = `${styles.SearchBar} ${isTravelClicked || isBudgetClicked ? styles.inactive : ''}`
 
     const handleSubmit = () => {
-        if (isTravelClicked && isBudgetClicked) {
+        if (selectedTabTitle && budgetInputValue) {
             onSearchClick()
             setIsTabVisible(false)
             setIsTabVisible2(false)
@@ -67,6 +69,19 @@ export const SearchBar = ({ onSearchClick }) => {
             setIsTravelClicked(false)
         } else {
             alert('대륙선택과 예산입력을 완료해주세요.')
+        }
+    }
+
+    const handleBudgetInputChange = (e) => {
+        setBudgetInputValue(e.target.value)
+    }
+
+    const handleBudgetSubmit = () => {
+        if (!isNaN(budgetInputValue) && budgetInputValue.trim() !== "") {
+            setIsBudgetClicked(true)
+            setIsTabVisible2(false)
+        } else {
+            alert("숫자로 예산을 입력해주세요.")
         }
     }
 
@@ -86,7 +101,7 @@ export const SearchBar = ({ onSearchClick }) => {
                     }}
                 >
                     <p className={styles.TravelDestination}>여행지</p>
-                    <p className={styles.TravelDestinationSearch}>여행지 검색</p>
+                    <p className={styles.TravelDestinationSearch}>{selectedTabTitle || "여행지 검색"}</p>
                 </div>
 
                 {isTabVisible && (
@@ -105,7 +120,8 @@ export const SearchBar = ({ onSearchClick }) => {
                                 <div className={styles.ClickSlide} style={{ left: `${activeIndex * 14.2857}%` }}></div>
                             </div>
                         </ul>
-                        <div>
+
+                        <div className={styles.TabContentContainer}>
                             {Array.isArray(tabContArr[activeIndex].tabCont) ? (
                                 tabContArr[activeIndex].tabCont.map((item, idx) => (
                                     <span key={idx} className={styles.TabContentItem}>
@@ -120,6 +136,7 @@ export const SearchBar = ({ onSearchClick }) => {
                         </div>
                         <button className={styles.ContinentBtn} onClick={(e) => {
                             e.preventDefault()
+                            setSelectedTabTitle(tabContArr[activeIndex].tabTitle)
                             setIsBudgetClicked(true)
                             setIsTabVisible2(true)
                             setIsTravelClicked(false)
@@ -140,31 +157,42 @@ export const SearchBar = ({ onSearchClick }) => {
                     className={`${styles.BudgetContainer} ${isBudgetClicked ? styles.clicked : isTravelClicked ? styles.inactive : ''}`}
                 >
                     <p className={styles.Budget}>예산</p>
-                    <p className={styles.BudgetInput}>예산 입력</p>
+                    <p className={styles.BudgetInput}>{budgetInputValue || "예산 입력"}</p>
                 </div>
 
                 {isTabVisible2 && (
                     <div className={styles.BudgetSetting}>
                         <p className={styles.BudgetSettingTitle}>예산 입력</p>
                         <div className={styles.BudgetSettingInputContainer}>
-                            <input autoFocus className={styles.BudgetSettingInput} placeholder="원화로 예산을 입력하세요." />
+                            <input
+                                autoFocus
+                                className={styles.BudgetSettingInput}
+                                placeholder="원화로 예산을 입력하세요."
+                                value={budgetInputValue}
+                                onChange={handleBudgetInputChange}
+                            />
                             <span className={styles.won}>원</span>
                             <p className={styles.line}></p>
                         </div>
                         <p className={styles.BudgetSettingSubtext}>입력하신 예산을 기준으로 가장 가성비 좋은 여행지를 추천해드려요!</p>
-                        <button className={styles.BudgetBtn}>완료</button>
+                        <button
+                            className={styles.BudgetBtn}
+                            onClick={(e) => {
+                                e.preventDefault()
+                                handleBudgetSubmit()
+                            }}
+                        >완료</button>
                     </div>
                 )}
 
-             
-                <img className={styles.SearchImg} onClick={() => {
-                    setIsTabVisible(false)
-                    setIsTabVisible2(false)
-                    setIsBudgetClicked(false)
-                    setIsTravelClicked(false)
-                    handleSubmit()
-                    }} src="/search.svg" alt="searchButton" />
-              
+                <img 
+                    className={styles.SearchImg} 
+                    onClick={() => {
+                        handleSubmit()
+                    }} 
+                    src="/search.svg" 
+                    alt="searchButton" 
+                />
             </form>
 
             <div className={styles.underline}></div>
