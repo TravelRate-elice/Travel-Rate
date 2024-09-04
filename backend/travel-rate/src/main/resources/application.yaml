@@ -1,0 +1,33 @@
+spring:
+  application:
+    name: rate
+  mail:
+    default-encoding: UTF-8        # gmail 이메일 인증키
+    host: smtp.gmail.com
+    port: 587
+    username: zpfhzpfh1234@gmail.com
+    password: udne angw cehj jxmv
+    properties:
+      mail.smtp.debug: true
+      mail.smtp.connectiontimeout: 1000 #1초
+      mail.starttls.enable: true
+      mail.smtp.auth: true
+  sql:
+    init:
+      mode: always #always에서 변경한 상태
+#      data-locations: classpath:data.sql
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  jpa:
+    defer-datasource-initialization: true
+    hibernate:
+      generate-ddl: true
+      ddl-auto: update
+    properties:
+      hibernate:
+        format_sql: true
+    show-sql: true
+    generate-ddl: true
+    database: mysql # 없으면 ddl error
+  profiles:
+    include: secret
