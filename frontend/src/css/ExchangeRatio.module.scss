@@ -28,9 +28,14 @@ main {
     align-items: center;
     margin-right: auto;
 }
+
+.checkImg {
+    cursor: pointer;
+    width: 120px;
+}
   
   .goalContents {
-    width: 170px;
+    width: 200px;
     display: flex;
     align-items: center;
     position: relative;
@@ -151,7 +156,8 @@ main {
 }
 
 .helpCheckBox {
-    border: 3px solid #7a7a7a;
+    cursor: pointer;
+    border: 2px solid #7a7a7a;
     border-radius: 25%;
     width: 18px;
     height: 18px;
@@ -169,15 +175,20 @@ main {
 }
 
 .lowerSideContents {
+    box-sizing: border-box;
     width: 80%;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
     border-radius: 30px;
-    height: 240px;
+    height: 270px;
     margin-top: -70px;
+    padding: 0 5%;
+    display: flex;
+    align-items: center;
 }
 
 .lowerSideContentsInner {
-    // margin-left: 10px;
+    width: 100%;
+    margin-top: 80px;
 }
 
 .alarmDialogues {
@@ -185,7 +196,7 @@ main {
     justify-content: space-between;
     align-items: center;
     width: 70%;
-    margin-bottom: 20px;
+    margin-bottom: 10px;
 }
 
 .alarmDialogueSmall {
@@ -194,16 +205,25 @@ main {
     margin-right: auto;
 }
 
+.alarmDialogueBigs {
+    display: flex;
+    justify-content: flex-end;
+    text-align: center;
+    width: 20%;
+}
+
 .alarmDialogueBig1 {
     font-size: 15px;
     font-weight: bolder;
+    width: 40px;
     opacity: 90%;
-    margin-right: 5%;
+    margin-right: 25%;
 }
 
 .alarmDialogueBig2 {
     font-size: 15px;
     font-weight: bolder;
+    width: 40px;
     opacity: 90%;
 }
 
@@ -217,37 +237,54 @@ main {
 }
 
 .lowerSideCountry {
+    margin-bottom: 18px;
     display: flex;
-    justify-content: flex-start;
-    padding-top: 5%;
-    gap: 10px;
+    justify-content: space-between;
 }
 
-.country2Modify, .country1Modify, .country3Modify {
-    margin-left: 70%;
-    width: 5%;
+.lowerSideTexts {
+    display: flex;
+    gap: 30px;
+    margin-right: auto;
+}
+
+.images {
+    display: flex;
+    justify-content: flex-end;
+    width: 20%;
+}
+
+.editImg {
+    width: 40px;
+    margin-right: 25%;
+}
+
+.deleteImg {
+    width: 40px;
 }
 
 
+// .country2Modify, .country1Modify, .country3Modify {
+//     margin-left: 70%;
+//     width: 5%;
+// }
 
-.lowerSideCountry1Img {
-    display: inline-block
-}
 
-.flag1, .flag2, .flag3 {
-    width: 20px;
-    height: 20px;
-}
+// .flag1, .flag2, .flag3 {
+//     width: 20px;
+//     height: 20px;
+// }
 
 .dropdownContainer {
     cursor: pointer;
-    width: 170px;
+    width: 200px;
     height: 50px;
     border: none;
     box-shadow: 0 1px 8px rgba(0, 0, 0, 0.3);
     border-radius: 30px;
     padding: 0 8%;
-    color: #555555;
+    color: #201f1f;
+    font-weight: 600;
     appearance: none;
     outline: none;
 }
@@ -261,53 +298,61 @@ main {
 
 
   .helpText1 {
+    font-size: 15px;
     position: absolute;
     background-color: #fff;
     padding: 10px;
-    border: 1px solid #ccc;
+    color: #7F9BED;
+    opacity: 80%;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     animation: fadein 1s;
-    margin-left: 1100px;
+    right: 27%;
     font-weight: bold;
-    margin-top: 100px;
+    margin-top: 0;
   }
 
   .helpText2 {
-  
+    font-size: 15px;
     position: absolute;
     background-color: #fff;
+    color: #7F9BED;
+    opacity: 80%;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 800px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    right: 27%;
     animation: fadein 1s;
-    margin-top: -70px;
+    margin-top: 50px;
     font-weight: bold;
   }
    .helpText3 {
+    font-size: 15px;
     position: absolute;
     background-color: #fff;
+    color: #7F9BED;
+    opacity: 80%;
     padding: 10px;
-    border: 1px solid #ccc;
     border-radius: 5px;
-    box-shadow: 0 2px 10bpx rgba(0, 0, 0, 0.1);
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
     font-weight: bold;
     animation: fadein 1s;
-    margin-left: 700px;
+    left: 10%;
+    bottom: 58%;
   }
    .helpText4 {
+    font-size: 15px;
     animation: fadein 1s;
     position: absolute;
     background-color: #fff;
     padding: 10px;
-    border: 1px solid #ccc;
+    color: #7F9BED;
+    opacity: 80%;
     border-radius: 5px;
-    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
-    margin-left: 1000px;
+    box-shadow: 0 1px 8px rgba(0, 0, 0, 0.2);
+    right: 10%;
     font-weight: bold;
-    margin-top: -80px;
+    bottom: 43%;
   }
 
   @keyframes fadein {

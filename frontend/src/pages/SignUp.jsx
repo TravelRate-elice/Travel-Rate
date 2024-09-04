@@ -67,33 +67,33 @@ const SignUp = () => {
     return (
         <div className={styles.signContainer}>
         <form className={styles.signInnerContainer}>
-        <p className={styles.signTitle}>회원가입</p>
-        <div className={styles.emailInput}>
-        <input autoFocus={true} type="email" value={email} onChange={handleSetEmail} placeholder="Example@email.com" />
-        {email && emailError && <p className={styles.errorMessage}>유효하지 않은 이메일 형식입니다.</p>}
-        </div>
-        <div className={styles.nameInput}>
-        <input type="text" value={name} onChange={handleSetName} placeholder="이름" />
-        </div>
-        <div className={styles.pwInput}>
-        <input type={show ? "password": "text"}  value={pw} onChange={handleSetPw} placeholder="비밀번호"/>
-        <img src={show ? "/eyeon.png" : "/eyeoff.png"}  alt="eye" className={styles.pwImg} onClick={handleShow}/>
-        </div>
-        <div className={styles.pwInputCheck}>
-        <input type={show2 ? "password": "text"}  value={pwCheck} onChange={handleSetPwCheck} placeholder="비밀번호 확인"/>
-        <img src={show2 ? "/eyeon.png" : "/eyeoff.png"}  alt="eye" className={styles.pwImg2} onClick={handleShow2}/>
-        {pwCheckErr && pwCheck && <p className={styles.errorMessage}>비밀번호와 일치하지 않습니다.</p>}
-        </div>
+            <div className={styles.signUpTopSection}>
+
+                <p className={styles.signTitle}>회원가입</p>
+                <div className={styles.emailInput}>
+                <input autoFocus={true} type="email" value={email} onChange={handleSetEmail} placeholder="Example@email.com" />
+                {email && emailError && <p className={styles.errorMessage}>유효하지 않은 이메일 형식입니다.</p>}
+                </div>
+                <div className={styles.nameInput}>
+                <input type="text" value={name} onChange={handleSetName} placeholder="이름" />
+                </div>
+                <div className={styles.pwInput}>
+                <input type={show ? "password": "text"}  value={pw} onChange={handleSetPw} placeholder="비밀번호"/>
+                <img src={show ? "/eyeon.png" : "/eyeoff.png"}  alt="eye" className={styles.pwImg} onClick={handleShow}/>
+                </div>
+                <div className={styles.pwInputCheck}>
+                <input type={show2 ? "password": "text"}  value={pwCheck} onChange={handleSetPwCheck} placeholder="비밀번호 확인"/>
+                <img src={show2 ? "/eyeon.png" : "/eyeoff.png"}  alt="eye" className={styles.pwImg2} onClick={handleShow2}/>
+                {pwCheckErr && pwCheck && <p className={styles.errorMessage}>비밀번호와 일치하지 않습니다.</p>}
+                </div>
+            </div>
 
         <div className={styles.linkBox}>
 
-        <button type="submit" className={styles.signBtn} onClick={handleSubmit}>
-            회원가입
-        </button>
-        이미 회원이신가요?
-     <Link to={'/login'}>
-     로그인
-     </Link>
+            <button type="submit" className={styles.signBtn} onClick={handleSubmit}>
+                회원가입
+            </button>
+            <span className={styles.subText}>이미 회원이신가요? <Link to={'/login'}>로그인</Link></span>
         </div>
         </form>
         </div>
