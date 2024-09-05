@@ -10,7 +10,15 @@ async function userLogin(userInfo) {
   return await api.post('/member/login', userInfo)
 }
 
-export { userCreate, userLogin } 
+async function userLogout(token) {
+  return await api.post('/member/logout',{
+    headers: {
+              'Authorization': token
+            }
+  })
+}
+
+export { userCreate, userLogin, userLogout } 
 
 
 
