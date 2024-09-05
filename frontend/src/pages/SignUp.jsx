@@ -57,6 +57,7 @@ const SignUp = () => {
     
 
     const handleUserCreate = async(userInfo) => {
+        
         let result = await userCreate(userInfo)
         if (result.status === 200) {
         navigate('/login')
