@@ -1,20 +1,24 @@
 import axios from 'axios'
-
-const { VITE_BASE_URL } = import.meta.env
+const whiteList = ['/member/login', '/member/create']
 
 
 function getInstance() {
   const instance = axios.create({
-    baseURL: VITE_BASE_URL
+    baseURL: process.env.REACT_APP_API_URL
   })
+  
 
   const jwtFilter = (config) => {
+    const route = config.url.replace(new RegExp(config.baseURL, 'gi'), '')
+    let isNotWhiteList = !whiteList.includes(route)
+
+    if (isNotWhiteList) {
       let jwt = {
         type: 'Bearer',
         accessToken: sessionStorage.getItem('token')
       }
       config.headers['Authorization'] = `${jwt.type} ${jwt.accessToken}`
-    
+    }
     return config
   }
 
