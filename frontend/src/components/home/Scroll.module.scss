@@ -65,6 +65,7 @@
 .secondSection {
   margin-top: 400px;
   width: 100%;
+  margin-bottom: 400px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -101,7 +102,81 @@
 
 .mainCurrencyImg, .mainCardImg, .mainAlertImg {
   width: 35%;
+  margin-bottom: 15px;
 }
+
+.secondSubText1 {
+  font-size: 20px;
+  font-weight: 700;
+  margin-top: 2px;
+  margin-bottom: 0;
+  color: #2b2b2b;
+}
+
+.secondSubText2 {
+  font-size: 17px;
+  font-weight: 500;
+  margin-bottom: 0;
+  margin-top: 15px;
+  color: #757575;
+}
+
+.thirdSection {
+  margin-top: 400px;
+  margin-bottom: 400px;
+  width: 100%;
+  height: 800px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+}
+
+.mockupImg {
+  width: 55%;
+  filter: drop-shadow(10px 10px 5px #b4b4b4);
+}
+
+.thirdContent1, .thirdContent2, .thirdContent3 {
+  display: flex;
+  align-items: center;
+  margin-bottom: 20vh;
+  opacity: 0;
+  transform: translateY(100px);
+  transition: opacity 0.5s ease-out, transform 0.5s ease-out;
+}
+
+.thirdContentTexts {
+  margin-left: 5%;
+}
+
+.topCircle {
+  margin-bottom: 20px;
+}
+
+.topCircleText {
+  width: 100px;
+  background-color: #7F9BED;
+  padding: 10px;
+  border-radius: 50px;
+  font-weight: 700;
+  text-align: center;
+  color: white;
+}
+
+.middleText {
+  margin: 0;
+  font-size: 30px;
+  font-weight: 700;
+  color: #2b2b2b;
+}
+
+.bottomText {
+  font-size: 18px;
+  font-weight: 400;
+  color: #757575;
+}
+
 
 @keyframes upAndDown {
   0% {
@@ -113,4 +188,97 @@
   100% {
     transform: translateY(0);
   }
+}
+
+footer {
+  width : 100vw;
+  height: 250px;
+  background-color: #c1cae7;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  justify-content: center;
+
+}
+
+.footerInner {
+  width: 90vw;
+  display: flex;
+  justify-content: center;
+  gap: 9%;
+  align-items: center;
+}
+
+.footerLogo {
+  width: 140px;
+  height: 40px;
+  margin-left: -20px;
+}
+
+.footerInnerLeft {
+  display: inline-block;
+  font-size: 12px;
+  color: #222222;
+  margin-top: 1%;
+
+}
+
+.footerOffice {
+  display: inline-block;
+  margin-top: 1%;
+  color: #222222;
+  
+}
+
+.footerContact {
+  color: #222222;
+  margin-top: 1%;
+  display: inline-block;
+}
+
+.footerService {
+  color: #222222;
+  margin-top: 1%;
+  display: inline-block;
+}
+
+.footerOffice p {
+  font-size: 12px;
+}
+
+.footerContact p {
+  font-size: 12px;
+}
+
+.footerService p {
+  font-size: 12px;
+}
+
+
+
+
+.officeDiv {
+  padding-bottom: 8px;
+  opacity: 60%;
+  font-weight: 500;
+  width: 210px;
+  border-bottom:#777777 1px solid;
+}
+
+.contactDiv {
+  padding-bottom: 8px;
+  opacity: 60%;
+  font-weight: 500;
+  width: 210px;
+  border-bottom:#777777 1px solid;
+
+}
+
+.serviceDiv {
+  padding-bottom: 8px;
+  opacity: 60%;
+  font-weight: 500;
+  width: 210px;
+  border-bottom:#777777 1px solid;
+
 }
