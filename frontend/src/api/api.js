@@ -6,7 +6,7 @@ function getInstance() {
   const instance = axios.create({
     baseURL: process.env.REACT_APP_API_URL
   })
-  
+  console.log(process.env.REACT_APP_API_URL)
 
   const jwtFilter = (config) => {
     const route = config.url.replace(new RegExp(config.baseURL, 'gi'), '')

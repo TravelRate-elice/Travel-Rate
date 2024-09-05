@@ -57,8 +57,11 @@ const SignUp = () => {
     
 
     const handleUserCreate = async(userInfo) => {
+        
         let result = await userCreate(userInfo)
-        if (result.data.statusCode === 200) {
+        console.log(result.status)
+
+        if (result.status === 200) {
         navigate('/login')
         } else {
             alert('something went wrong')
