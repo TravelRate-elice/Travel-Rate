@@ -4,6 +4,8 @@ import com.fasterxml.jackson.core.JsonProcessingException;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.travel.rate.dto.res.ResExchgDTO;
+import com.travel.rate.dto.res.ResponseCode;
+import com.travel.rate.exception.BusinessExceptionHandler;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Component;
@@ -70,22 +72,26 @@ public class ExchangeUtils {
     private JsonNode parseJson(String responseBody){
         try {
             ObjectMapper objectMapper = new ObjectMapper();
-            return objectMapper.readTree(responseBody);
+            JsonNode jsonNode = objectMapper.readTree(responseBody);
+            return jsonNode;
         } catch (IOException e){
             // 예외 처리
             e.printStackTrace();
             return null;
-        }
+        } /*catch (IllegalArgumentException e){
+            throw  new BusinessExceptionHandler(ResponseCode.RATE_NOT_FOUND);
+        }*/
     }
 
     // 실시간 환율 전체 정보
     public List<ResExchgDTO> getExchangeDataAsDtoList() {
         JsonNode jsonNode = getExchangeDataSync();
-
         if (jsonNode != null && jsonNode.isArray()) {
+
             List<ResExchgDTO> resExchgDTOS = new ArrayList<>();
 
             for (JsonNode node : jsonNode) {
+
                 ResExchgDTO resExchgDTO = convertJsonToExchangeDto(node);
                 resExchgDTOS.add(resExchgDTO);
             }

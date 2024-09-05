@@ -28,6 +28,7 @@ public enum ResponseCode {
     USER_NOT_FOUND(HttpStatus.NOT_FOUND, false, "사용자를 찾을 수 없습니다."),
     COUNTRY_NOT_FOUND(HttpStatus.NOT_FOUND, false, "나라를 찾을 수 없습니다."),
     TARGET_NOT_FOUND(HttpStatus.NOT_FOUND, false, "이미 삭제됬거나 환율 설정을 찾을 수 없습니다."),
+    RATE_NOT_FOUND(HttpStatus.NOT_FOUND, false, "지금은 영업시간이 아닙니다. 다음에 다시 이용해주세요."),
 
     // 405 Method Not Allowed
     METHOD_NOT_ALLOWED(HttpStatus.METHOD_NOT_ALLOWED, false, "허용되지 않은 메소드입니다."),
@@ -37,6 +38,7 @@ public enum ResponseCode {
     EMAIL_ALREADY_EXIST(HttpStatus.CONFLICT, false, "이미 사용중인 이메일입니다."),
     TARGET_ADD_FAIL(HttpStatus.CONFLICT, false, "더이상 알림 설정을 하실 수 없습니다."),
     WRONG_PASSWORD(HttpStatus.CONFLICT, false, "올바르지 않은 비밀번호 입니다."),
+    BUDGET_CANNOT_BE_ZERO(HttpStatus.CONFLICT, false, "예산은 0 이상이여야 합니다."),
 
     // 500 Internal Server Error
     INTERNAL_SERVER_ERROR(HttpStatus.INTERNAL_SERVER_ERROR, false, "서버에 오류가 발생하였습니다."),
