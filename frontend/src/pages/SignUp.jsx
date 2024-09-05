@@ -1,9 +1,10 @@
 import React, { useState, useEffect } from "react";
-import { Link } from "react-router-dom";
+import { Link, Navigate, useNavigate } from "react-router-dom";
 import styles from '../css/SignUp.module.scss'
+import { userCreate } from "../api/user";
 
 const SignUp = () => {
-
+    const navigate = useNavigate()
     const [email, setEmail] = useState('')
     const emailValidate = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
     const [emailError, setEmailError] = useState(false);
@@ -53,6 +54,16 @@ const SignUp = () => {
     const handleShow2 = () => {
         setShow2(!show2)
     }
+    
+
+    const handleUserCreate = async(userInfo) => {
+        let result = await userCreate(userInfo)
+        if (result.data.statusCode === 200) {
+        navigate('/login')
+        } else {
+            alert('something went wrong')
+        }
+    }
 
     const handleSubmit = (e) => {
         e.preventDefault()
@@ -62,8 +73,16 @@ const SignUp = () => {
         else if (!(emailValidate.test(email))) {
             return alert('이메일 형식이 올바르지 않습니다.')
         }
-        
+
+        let userInfo = {
+            'email':email,
+            'name':name,
+            'password':pw
+        }
+        handleUserCreate(userInfo)   
     }
+
+
     return (
         <div className={styles.signContainer}>
         <form className={styles.signInnerContainer}>
