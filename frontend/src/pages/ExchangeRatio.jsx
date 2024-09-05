@@ -10,6 +10,8 @@ const ExchangeRatio = () => {
     const [submitList, setSubmitList] = useState([])
     const [isAnimating, setIsAnimating] = useState(false);
     const [isHovered, setIsHovered] = useState(false)
+    const [hoveredEditIndex, setHoveredEditIndex] = useState(null)
+    const [hoveredDeleteIndex, setHoveredDeleteIndex] = useState(null)
 
     const toggleHelp = () => {
         setHelpActive(!helpActive);
@@ -64,7 +66,7 @@ const ExchangeRatio = () => {
                     <div className={styles.helpcontents}>
                         <p className={styles.helpDialogue}>도움말 설정</p>
                         <div className={styles.helpCheckBox} onClick={toggleHelp}>
-                            {helpActive ?  <img src="/check.png" alt="check" style={{position:"absolute", marginTop:'-54px', marginLeft:'-27px'}}/> : ''}    
+                            {helpActive ?  <img src="/exchange/check.svg" alt="check" className={styles.checkImg} style={{position:"absolute", top:'-60px', right: '-57px'}}/> : ''}    
                         </div> 
                     </div>
 
@@ -77,7 +79,7 @@ const ExchangeRatio = () => {
                 </div>
                 {helpActive && (
                         <div className={styles.helpText1}>
-                            1. 목표 환율을 설정하려면 국가를 선택하세요.
+                            1) 목표 환율을 설정하려면 국가를 선택하세요.
                         </div>
                     )}
 
@@ -88,7 +90,7 @@ const ExchangeRatio = () => {
                 {helpActive && (
                         <div className={styles.helpText2}>
                             
-                            2. 1부터 5000까지 슬라이더를 움직여 목표 환율을 설정하세요.
+                            2) 1부터 5000까지 슬라이더를 움직여 목표 환율을 설정하세요.
                         </div>
                     )}
                 </div>
@@ -109,14 +111,16 @@ const ExchangeRatio = () => {
                     />
                     {helpActive && (
                             <div className={styles.helpText3}>
-                                3. 국가명과 목표 환율을 선택한 뒤 알림추가 버튼을 누르시면 알림목록에 추가됩니다.
+                                3) 국가명과 목표 환율을 선택한 뒤 알림추가 버튼을 누르시면 알림목록에 추가됩니다.
                             </div>
                         )}
                 </div>
                     <div className={styles.alarmDialogues}>
                         <span className={styles.alarmDialogueSmall}>최대 3개 추가 가능 / 환율정보 오전 11시 마다 업데이트</span>
-                        <span className={styles.alarmDialogueBig1}>수정</span>
-                        <span className={styles.alarmDialogueBig2}>삭제</span>
+                        <div className={styles.alarmDialogueBigs}>
+                            <span className={styles.alarmDialogueBig1}>수정</span>
+                            <span className={styles.alarmDialogueBig2}>삭제</span>
+                        </div>
                     </div>
                     <p className={styles.underLine}></p>
                 <div className={styles.lowerSideContents}>
@@ -125,8 +129,26 @@ const ExchangeRatio = () => {
 
                     {submitList.length <= 3 && submitList.map((item, index) => (
                             <div key={index} className={styles.lowerSideCountry}>
-                                <p>국가 이름: {item.country}</p>
-                                <p>설정하신 환율(원화기준): {item.targetRate}원</p>
+                                <div className={styles.lowerSideTexts}>
+                                    <span>국가 이름: {item.country}</span>
+                                    <span>설정하신 환율(원화기준): {item.targetRate}원</span>
+                                </div>
+                                <div className={styles.images}>
+                                    <img 
+                                        className={styles.editImg}
+                                        src={hoveredEditIndex === index ? "/exchange/edit_click.svg" : "/exchange/edit_gray.svg"}
+                                        alt="edit" 
+                                        onMouseEnter={() => setHoveredEditIndex(index)}
+                                        onMouseLeave={() => setHoveredEditIndex(null)}
+                                    />
+                                    <img 
+                                        className={styles.deleteImg} 
+                                        src={hoveredDeleteIndex === index ? "/exchange/delete_click.svg" : "/exchange/delete_gray.svg"}
+                                        alt="delete" 
+                                        onMouseEnter={() => setHoveredDeleteIndex(index)}
+                                        onMouseLeave={() => setHoveredDeleteIndex(null)}
+                                    />
+                                </div>
                             </div>
                         ))}
 
@@ -155,7 +177,7 @@ const ExchangeRatio = () => {
                 </div>
                 {helpActive && (
                     <div className={styles.helpText4}>
-                        4. 이곳에 설정된 환율은 수정하거나 삭제할 수 있습니다.
+                        4) 이곳에 설정된 환율은 수정하거나 삭제할 수 있습니다.
                     </div>
                 )}
             </main>
