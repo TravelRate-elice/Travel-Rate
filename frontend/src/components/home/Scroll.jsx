@@ -6,10 +6,29 @@ export const Scroll = () => {
 
     const checkViewport = () => {
         const airplane = document.querySelector(`.${styles.Airplane1}`)
+        const thirdContents = [
+            document.querySelector(`.${styles.thirdContent1}`),
+            document.querySelector(`.${styles.thirdContent2}`),
+            document.querySelector(`.${styles.thirdContent3}`)
+        ]
+
         if (airplane) {
             const rect = airplane.getBoundingClientRect()
             setIsInViewport(rect.top < window.innerHeight && rect.bottom > 0)
         }
+
+        thirdContents.forEach(content => {
+            if (content) {
+                const rect = content.getBoundingClientRect()
+                if (rect.top < window.innerHeight && rect.bottom > 0) {
+                    content.style.opacity = '1'
+                    content.style.transform = 'translateY(0)'
+                } else {
+                    content.style.opacity = '0'
+                    content.style.transform = 'translateY(100px)'
+                }
+            }
+        })
     }
 
     useEffect(() => {
@@ -82,6 +101,8 @@ export const Scroll = () => {
 
                 airplane.style.transform = `translate(${translateX * scrollRatio}px, ${translateY * scrollRatio}px)`
             }
+
+            checkViewport()
         }
 
         if (header) {
@@ -96,7 +117,6 @@ export const Scroll = () => {
         checkViewport()
 
         return () => {
-
             if (header) {
                 header.removeEventListener("mousemove", handleMouseMove)
                 header.removeEventListener("mouseenter", handleMouseEnter)
@@ -140,44 +160,91 @@ export const Scroll = () => {
                 <div className={styles.secondDescriptionContent}>
                     <div className={styles.secondDescription1}>
                         <img className={styles.mainCurrencyImg} src="/main_currency.svg" alt="currency" />
-                        <p>지원통화</p>
-                        <p>23개</p>
+                        <p className={styles.secondSubText1}>다양한 국가의</p>
+                        <p className={styles.secondSubText1}>실시간 환율 확인 가능</p>
+                        <p className={styles.secondSubText2}>지원 통화 23개, 총 43개 국가</p>
                     </div>
 
                     <div className={styles.secondDescription2}>
                         <img className={styles.mainCardImg} src="/main_card.svg" alt="card" />
-                        <p>카드추천</p>
-                        <p>평균 30종 이상</p>
+                        <p className={styles.secondSubText1}>추천받은 국가의</p>
+                        <p className={styles.secondSubText1}>환율우대 카드까지 추천</p>
+                        <p className={styles.secondSubText2}>100% 환율우대카드, 평균 30종 이상</p>
                     </div>
 
                     <div className={styles.secondDescription3}>
                         <img className={styles.mainAlertImg} src="/main_alert.svg" alt="exchange" />
-                        <p>원하는 환율에 환전이 가능하도록,</p>
-                        <p>알림 서비스</p>
+                        <p className={styles.secondSubText1}>원하는 환율에</p>
+                        <p className={styles.secondSubText1}>환전이 가능하도록</p>
+                        <p className={styles.secondSubText2}>일정시간마다 자동 이메일 알림 서비스</p>
                     </div>
                 </div>
             </div>
 
-            <div>
-                <img src="" alt="destination" />
-                <p>지금 현재 가기 좋은 여행지 추천받고,</p>
-                <p>빠르게 여행계획 세우자!</p>
-            </div>
-            <br />
+            <div className={styles.thirdSection}>
+                <div className={styles.thirdContent1}>
+                    <img className={styles.mockupImg} src="/mockup1.png" alt="mockup" />
+                    <div className={styles.thirdContentTexts}>
+                        <div className={styles.topCircle}>
+                            <p className={styles.topCircleText}>여행지 추천</p>
+                        </div>
+                        <p className={styles.middleText}>빠르게 여행계획 세우자!</p>
+                        <p className={styles.bottomText}>지금 현재 가기 좋은 여행지 추천받고 빠르게 결정해요.</p>
+                    </div>
+                </div>
 
-            <div>
-                <img src="" alt="card-recommendation" />
-                <p>여행지 환율 우대받을 수 있는 카드 추천받고,</p>
-                <p>몰랐던 혜택 누리자!</p>
-            </div>
-            <br />
+                <div className={styles.thirdContent2}>
+                    <img className={styles.mockupImg} src="/mockup2.png" alt="mockup" />
+                    <div className={styles.thirdContentTexts}>
+                        <div className={styles.topCircle}>
+                            <p className={styles.topCircleText}>카드 추천</p>
+                        </div>
+                        <p className={styles.middleText}>몰랐던 혜택 누리자!</p>
+                        <p className={styles.bottomText}>여행지 환율 우대받을 수 있는 카드도 한번에 알아봐요.</p>
+                    </div>
+                </div>
 
-            <div>
-                <img src="" alt="alert" />
-                <p>알림받고 내가 정한 환율대로</p>
-                <p>현명한 여행계획 세우자!</p>
+                <div className={styles.thirdContent3}>
+                    <img className={styles.mockupImg} src="/mockup3.png" alt="mockup" />
+                    <div className={styles.thirdContentTexts}>
+                        <div className={styles.topCircle}>
+                            <p className={styles.topCircleText}>환율 알림</p>
+                        </div>
+                        <p className={styles.middleText}>현명한 여행계획 세우자!</p>
+                        <p className={styles.bottomText}>알림받고 내가 정한 환율대로 예산 계획 세워요.</p>
+                    </div>
+                </div>
             </div>
-            <br />
+
+            <footer>
+                <div className={styles.footerInner}>
+                    
+                    <div className={styles.footerInnerLeft}>
+                        <img className={styles.footerLogo} src="/logo1.png" alt="footer-logo" />
+                        <p>개인정보처리방침 | 이메일무단수집거부</p>
+                        <p>COPYRIGHT ⓒ 2024 트래블레이트 ALL RIGHTS RESERVED.</p>
+                    </div>
+                    <div className={styles.footerOffice}>
+                        <div className={styles.officeDiv}>OFFICE</div>
+                        <p>트래블레이트</p>
+                        <p>서울특별시 강남구 선릉로 433, 신관 77층</p>
+                        <p>사업자등록번호: 000 - 00 -0000</p>
+                    </div>
+                    <div className={styles.footerContact}>
+                        <div className={styles.contactDiv}>CONTACT</div>
+                        <p>T 000-000-00000</p>
+                        <p>F 000-123-4567</p>
+                        <p>E-mail : travelrate@elice.com</p>
+                    </div>
+                    <div className={styles.footerService}>
+                        <div className={styles.serviceDiv}>SERVICE</div>
+                        <p>고객센터 : 123-456-7890</p>
+                        <p>평 일 : 오전9시-오후6시</p>
+                        <p>토요일 : 오전9시-오후2시</p>
+                    </div>
+                </div>
+            </footer>
+
         </div>
     )
 }
