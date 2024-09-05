@@ -12,17 +12,17 @@ async function currencyList() {
 
 // 환율알림 목록
 async function targetList() {
-    return await api.get('/exchange-rate/list/{memId}')
+    return await api.get('/exchange-rate/list/`${memId}`')
 }
 
 // 환율알림 수정
 async function targetList() {
-    return await api.put('/exchange-rate/target/{tagId}')
+    return await api.put('/exchange-rate/target/`${tagId}`')
 }
 
 // 환율알림 삭제
 async function targetList() {
-    return await api.delete('/exchange-rate/target/{tagId}')
+    return await api.delete('/exchange-rate/target/`${tagId}`')
 }
 
   export { targetAdd, currencyList, targetList }
