@@ -15,7 +15,7 @@ function getInstance() {
     if (isNotWhiteList) {
       let jwt = {
         type: 'Bearer',
-        accessToken: sessionStorage.getItem('token')
+        accessToken: localStorage.getItem('accessToken')
       }
       config.headers['Authorization'] = `${jwt.type} ${jwt.accessToken}`
     }

@@ -2,24 +2,31 @@ import React, { useState } from 'react';
 import styles from './NationCard.module.scss';
 import { BankCard } from './BankCard';
 
-export const NationCard = () => {
+export const NationCard = ({countryName, description, budget, season}) => {
   const [selectedIndex, setSelectedIndex] = useState(null);
 
   const tabContArr = [
     {
       index: 0,
-      tabTitle: "여행지명0",
-      tabCont: "여행지상세0"
+      tabTitle: countryName?.[0] ,
+      tabCont: description?.[0],
+      tabBudget: budget?.[0],
+      tabSeason: season?.[0]
+      
     },
     {
       index: 1,
-      tabTitle: "여행지명1",
-      tabCont: "여행지상세1"
+      tabTitle: countryName?.[1] ,
+      tabCont: description?.[1],
+      tabBudget: budget?.[1],
+      tabSeason: season?.[1]
     },
     {
       index: 2,
-      tabTitle: "여행지명2",
-      tabCont: "여행지상세2"
+      tabTitle: countryName?.[2] ,
+      tabCont: description?.[2],
+      tabBudget: budget?.[2],
+      tabSeason: season?.[2]
     },
   ];
 
@@ -44,6 +51,8 @@ export const NationCard = () => {
             >
               <div className={styles.TabContentImage}></div>
               <p className={styles.TabTitle}>{section.tabTitle}</p>
+              <p>{section.tabBudget}</p>
+              <p>{section.tabSeason}</p>
               <div className={styles.TabContentItem}>
                 <span className={styles.TabContentDetail}>
                   {section.tabCont}

@@ -29,7 +29,9 @@ const Login = () => {
         const response = await userLogin(userInfo)
         
         if (response.status=== 200) {
-            localStorage.setItem('accessToken',response.data.data)
+            localStorage.setItem('accessToken',response.data.data.access_token)
+        
+            localStorage.setItem('memId', response.data.data.id)
             navigate('/')
         } else {
             

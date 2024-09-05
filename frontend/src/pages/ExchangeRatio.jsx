@@ -2,6 +2,11 @@ import React, { useState} from "react";
 import Dropdown from "../components/exchangeRatio/Dropdown";
 import styles from '../css/ExchangeRatio.module.scss'
 import Slider from "../components/exchangeRatio/Slider";
+import { targetAdd, targetList, targetModify, targetDelete } from "../api/target";
+import { useMemo } from "react";
+import { targetDetail } from "../api/targetDtail";
+import { useRef } from "react";
+
 
 const ExchangeRatio = () => {
     const [countries, setCountries] = useState("")
@@ -12,45 +17,97 @@ const ExchangeRatio = () => {
     const [isHovered, setIsHovered] = useState(false)
     const [hoveredEditIndex, setHoveredEditIndex] = useState(null)
     const [hoveredDeleteIndex, setHoveredDeleteIndex] = useState(null)
+    const [targets, setTargets] = useState([])
+    const flagRef = useRef(false)
+    const memId = localStorage.getItem('memId')
+    const token = localStorage.getItem('accessToken')
+
+    useMemo(() => {
+        const fetchTargets= async () => {
+        try {
+            const response = await targetList(memId, token);
+           
+            if (response.status === 200 && response.data && Array.isArray(response.data.data)) {
+              flagRef.ref = true
+                setTargets((current)=>{
+                    const newArray = [...current]
+                    if (response.data.data.length <= 3) {
+                        newArray.push(response.data.data)
+                    } else {
+                        alert('최대 3개까지 추가가능합니다.')
+                    }
+                    return newArray
+                }
+            )}
+        } catch (error) {
+            console.error('Failed to fetch target list:', error);
+        }}
+        
+    fetchTargets()
+ 
+    if (flagRef.ref) {
+        window.location.reload();
+        flagRef.ref = false
+    }
+    }, [])
+
+
+
 
     const toggleHelp = () => {
         setHelpActive(!helpActive);
     }
-    const handleDelete = (index) => {
-        setSubmitList((current) => current.filter((_, i) => i !== index));
+    const handleDelete = async(index) => {
+       await targetDelete(index)
     };
 
+    const handleEdit = async(index) => {
+        await targetModify(index)
+    }
+
     const handleChangeRate = (event) => {
+       
         const selectedRate = event.target.value
         setGoalRate(selectedRate)
     }
 
     const handleChangeCountry = (event) => {  
+        
         const selectedCountry = event.target.value
         setCountries(selectedCountry)
     }
 
-
-  
     const handleAnimationEnd = () => {
         setIsAnimating(false); 
     };
+    const handleTargetAdd = async() => {  
+        const targetInfo = {
+            'memId': memId,
+            'ctrId': countries,
+            'chgRate': goalRate
+        }
+        const response = await targetAdd(targetInfo,token)
+        if (response.status === 200) {
+           
+            console.log('성공')
+        } else if (response.status === 409) {
+            alert('최대 3개국까지 입력가능합니다.')
+        }
+    }
 
     const handleSubmit = () => {
         if (!countries || !goalRate) {
             alert('국가와 목표 환율을 모두 선택하세요.');
             return;
         }
-        const obj = {
-            country: countries,
-            targetRate: goalRate
-        }
-        if (submitList.length <= 3) {
-            setSubmitList((current)=>
-                [...current, obj])
-            setCountries("")
-            setGoalRate("")
+     
+      
+        if (targets.length <= 3) {
+            
+            handleTargetAdd()
+       
             setIsAnimating(true);
+        
 
     } else {
         return alert('최대 3개 국가 까지 추가 가능합니다.')
@@ -127,51 +184,84 @@ const ExchangeRatio = () => {
 
                     <div className={styles.lowerSideContentsInner}>
 
-                    {submitList.length <= 3 && submitList.map((item, index) => (
-                            <div key={index} className={styles.lowerSideCountry}>
+                    {submitList.length <= 3 && targets.map((item, index) => (
+                            <>
+                            
+                            <div key={0} className={styles.lowerSideCountry}>
                                 <div className={styles.lowerSideTexts}>
-                                    <span>국가 이름: {item.country}</span>
-                                    <span>설정하신 환율(원화기준): {item.targetRate}원</span>
+                                {item[0] &&<span>국가 이름: {item[0]?.ctrName} {item[0]?.curCode}</span>}
+                                    {item[0] && <span>설정하신 환율(원화기준): {item[0]?.chgRate}원</span>}
                                 </div>
                                 <div className={styles.images}>
                                     <img 
                                         className={styles.editImg}
-                                        src={hoveredEditIndex === index ? "/exchange/edit_click.svg" : "/exchange/edit_gray.svg"}
+                                        src={hoveredEditIndex === 0 ? "/exchange/edit_click.svg" : "/exchange/edit_gray.svg"}
                                         alt="edit" 
-                                        onMouseEnter={() => setHoveredEditIndex(index)}
+                                        onClick={()=>handleEdit(0)}
+                                        onMouseEnter={() => setHoveredEditIndex(0)}
                                         onMouseLeave={() => setHoveredEditIndex(null)}
                                     />
                                     <img 
                                         className={styles.deleteImg} 
-                                        src={hoveredDeleteIndex === index ? "/exchange/delete_click.svg" : "/exchange/delete_gray.svg"}
+                                        src={hoveredDeleteIndex === 0 ? "/exchange/delete_click.svg" : "/exchange/delete_gray.svg"}
                                         alt="delete" 
-                                        onMouseEnter={() => setHoveredDeleteIndex(index)}
+                                        onClick={()=>handleDelete(0)}
+                                        onMouseEnter={() => setHoveredDeleteIndex(0)}
                                         onMouseLeave={() => setHoveredDeleteIndex(null)}
                                     />
                                 </div>
                             </div>
+                            <div key={1} className={styles.lowerSideCountry}>
+                            <div className={styles.lowerSideTexts}>
+                                {item[1] && <span>국가 이름: {item[1]?.ctrName} {item[1]?.curCode}</span>}
+                                {item[1] &&<span>설정하신 환율(원화기준): {item[1]?.chgRate}원</span>}
+                            </div>
+                            <div className={styles.images}>
+                                <img 
+                                    className={styles.editImg}
+                                    src={hoveredEditIndex === 1 ? "/exchange/edit_click.svg" : "/exchange/edit_gray.svg"}
+                                    alt="edit" 
+                                    onClick={()=>handleEdit(1)}
+                                    onMouseEnter={() => setHoveredEditIndex(1)}
+                                    onMouseLeave={() => setHoveredEditIndex(null)}
+                                />
+                                <img 
+                                    className={styles.deleteImg} 
+                                    src={hoveredDeleteIndex === 1 ? "/exchange/delete_click.svg" : "/exchange/delete_gray.svg"}
+                                    alt="delete" 
+                                    onClick={()=>handleDelete(1)}
+                                    onMouseEnter={() => setHoveredDeleteIndex(1)}
+                                    onMouseLeave={() => setHoveredDeleteIndex(null)}
+                                />
+                            </div>
+                        </div>
+                        <div key={2} className={styles.lowerSideCountry}>
+                        <div className={styles.lowerSideTexts}>
+                        {item[2] &&<span>국가 이름: {item[2]?.ctrName} {item[2]?.curCode}</span>}
+                        {item[2] &&<span>설정하신 환율(원화기준): {item[2]?.chgRate}원</span>}
+                        </div>
+                        <div className={styles.images}>
+                            <img 
+                                className={styles.editImg}
+                                src={hoveredEditIndex === 2 ? "/exchange/edit_click.svg" : "/exchange/edit_gray.svg"}
+                                alt="edit" 
+                                onClick={()=>handleEdit(2)}
+                                onMouseEnter={() => setHoveredEditIndex(2)}
+                                onMouseLeave={() => setHoveredEditIndex(null)}
+                            />
+                            <img 
+                                className={styles.deleteImg} 
+                                src={hoveredDeleteIndex === 2 ? "/exchange/delete_click.svg" : "/exchange/delete_gray.svg"}
+                                alt="delete" 
+                                onClick={()=>handleDelete(2)}
+                                onMouseEnter={() => setHoveredDeleteIndex(2)}
+                                onMouseLeave={() => setHoveredDeleteIndex(null)}
+                            />
+                        </div>
+                    </div>
+                    </>
                         ))}
 
-                        {/* {submitList.length < 3 && submitList && <div className={styles.lowerSideCountry1} >
-                        <img src="/flag-sample.png" alt="flag1" className={styles.flag1}/>
-                        <p className={styles.lowerSideCountry1Name}>{submitList.country}</p>
-                            <img src='/modify.png' alt="modify"className={styles.country1Modify} />
-                            <img src="/cancel.png" alt="delete" className={styles.country1Delete}/>
-                        </div>}
-                        <hr />
-                        <div className={styles.lowerSideCountry2}>
-                        <img src="/flag-sample2.png" alt="flag2"  className={styles.flag2} />
-                        <p className={styles.lowerSideCountry2Name}>국가명 통화코드 환율</p>
-                            <img src="/modify.png" alt="modify" className={styles.country2Modify}/>
-                            <img src="/cancel.png" alt="delete" className={styles.country2Delete}/>
-                        </div>
-                        <hr />
-                        <div className={styles.lowerSideCountry3}>
-                        <img src="/flag-sample3.png" alt="flag3"  className={styles.flag3}/>
-                        <p className={styles.lowerSideCountry3Name}>국가명 통화코드 환율</p>
-                            <img src="/modify.png" alt="modify" className={styles.country3Modify}/>
-                            <img src="/cancel.png" alt="delete" className={styles.country3Delete}/>
-                        </div> */}
                        
                     </div>
                 </div>
