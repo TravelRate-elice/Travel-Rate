@@ -1,7 +1,10 @@
 import React, { useState, useEffect, useRef } from "react"
 import styles from './SearchBar.module.scss'
+import { recommendCountries } from "../../api/recommend"
+import { NationCard } from "./NationCard"
 
-export const SearchBar = ({ onSearchClick }) => {
+
+export const SearchBar = () => {
     const [activeIndex, setActiveIndex] = useState(0)
     const [isTabVisible, setIsTabVisible] = useState(false)
     const [isTabVisible2, setIsTabVisible2] = useState(false)
@@ -10,8 +13,19 @@ export const SearchBar = ({ onSearchClick }) => {
     const [isBudgetClicked, setIsBudgetClicked] = useState(false)
 
     const [isHovered, setIsHovered] = useState(false)
-    const [selectedTabTitle, setSelectedTabTitle] = useState("")
+    const [selectedTabTitle, setSelectedTabTitle] = useState()
     const [budgetInputValue, setBudgetInputValue] = useState("")
+
+
+    const [showNationCard, setShowNationCard] = useState(false)
+  
+
+    const tabNum = useRef()
+
+   const [countryName, setCountryName] = useState([])
+   const [description, setDescription] = useState([])
+   const [season, setSeason] = useState([])
+    const [budget, setBudget] = useState([])
 
     const tabRef = useRef(null)
     const tabRef2 = useRef(null)
@@ -21,13 +35,13 @@ export const SearchBar = ({ onSearchClick }) => {
     }
 
     const tabContArr = [
-        { index: 0, tabTitle: "전체", tabCont: ["중국", "홍콩", "일본", "브루나이", "인도네시아", "말레이시아", "싱가포르", "태국", "아랍에미리트", "바레인", "쿠웨이트", "사우디", "미국", "캐나다", "유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴", "호주", "뉴질랜드"] },
-        { index: 1, tabTitle: "동북아", tabCont: ["중국", "홍콩", "일본"] },
-        { index: 2, tabTitle: "동남아", tabCont: ["브루나이", "인도네시아", "말레이시아", "싱가포르", "태국"] },
-        { index: 3, tabTitle: "중동", tabCont: ["아랍에미리트", "바레인", "쿠웨이트", "사우디"] },
-        { index: 4, tabTitle: "북미", tabCont: ["미국", "캐나다"] },
-        { index: 5, tabTitle: "유럽", tabCont: ["유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴"] },
-        { index: 6, tabTitle: "오세안주", tabCont: ["호주", "뉴질랜드"] }
+      
+        { index: 50, tabTitle: "동북아", tabCont: ["중국", "홍콩", "일본"] },
+        { index: 60, tabTitle: "동남아", tabCont: ["브루나이", "인도네시아", "말레이시아", "싱가포르", "태국"] },
+        { index: 20, tabTitle: "중동", tabCont: ["아랍에미리트", "바레인", "쿠웨이트", "사우디"] },
+        { index: 10, tabTitle: "북미", tabCont: ["미국", "캐나다"] },
+        { index: 40, tabTitle: "유럽", tabCont: ["유로존", "스위스", "덴마크", "영국", "노르웨이", "스웨덴"] },
+        { index: 30, tabTitle: "오세안주", tabCont: ["호주", "뉴질랜드"] }
     ]
 
     const handleClickOutside = (event) => {
@@ -60,9 +74,43 @@ export const SearchBar = ({ onSearchClick }) => {
 
     const searchBarClass = `${styles.SearchBar} ${isTravelClicked || isBudgetClicked ? styles.inactive : ''}`
 
+
+    const handleRecommendCountry = async() => {
+        
+        const userInfo = {
+            'continent_id': tabNum.ref,
+            'budget': budgetInputValue
+        }
+        
+        const response = await recommendCountries(userInfo)
+
+        if (response.status === 200) {
+           setCountryName((current) => {
+            const newArr = [...current]
+            newArr.push(response.data.country_name)
+            return
+           })
+           setDescription((current) => {
+            const newArr = [...current]
+            newArr.push(response.data.description)
+            return
+           })
+           setSeason((current) => {
+            const newArr = [...current]
+            newArr.push(response.data.season)
+            return
+           })
+           setBudget((current) => {
+            const newArr = [...current]
+            newArr.push(response.data.budget)
+            return
+           })
+        }
+    }
+
+
     const handleSubmit = () => {
         if (selectedTabTitle && budgetInputValue) {
-            onSearchClick()
             setIsTabVisible(false)
             setIsTabVisible2(false)
             setIsBudgetClicked(false)
@@ -70,7 +118,12 @@ export const SearchBar = ({ onSearchClick }) => {
         } else {
             alert('대륙선택과 예산입력을 완료해주세요.')
         }
+        setShowNationCard(true)
+        handleRecommendCountry()
     }
+
+
+
 
     const handleBudgetInputChange = (e) => {
         setBudgetInputValue(e.target.value)
@@ -136,6 +189,7 @@ export const SearchBar = ({ onSearchClick }) => {
                         </div>
                         <button className={styles.ContinentBtn} onClick={(e) => {
                             e.preventDefault()
+                            tabNum.ref = tabContArr[activeIndex].index
                             setSelectedTabTitle(tabContArr[activeIndex].tabTitle)
                             setIsBudgetClicked(true)
                             setIsTabVisible2(true)
@@ -196,6 +250,7 @@ export const SearchBar = ({ onSearchClick }) => {
             </form>
 
             <div className={styles.underline}></div>
+            {showNationCard && <NationCard  countryName={countryName} description={description} budget={budget} season={season}/>}
         </div>
     )
 }
